@@ -1,6 +1,6 @@
 # SalesforceRecord
 
-[![Build Status](https://travis-ci.org/mru2/salesforce_record.png?branch=master)](https://travis-ci.org/mru2/salesforce_record) [![Coverage Status](https://coveralls.io/repos/mru2/salesforce_record/badge.png)](https://coveralls.io/r/mru2/salesforce_record) [![Code Climate](https://codeclimate.com/github/mru2/salesforce_record.png)](https://codeclimate.com/github/mru2/salesforce_record)
+[![Gem Version](https://badge.fury.io/rb/salesforce_record.png)](http://badge.fury.io/rb/salesforce_record) [![Build Status](https://travis-ci.org/mru2/salesforce_record.png?branch=master)](https://travis-ci.org/mru2/salesforce_record) [![Coverage Status](https://coveralls.io/repos/mru2/salesforce_record/badge.png)](https://coveralls.io/r/mru2/salesforce_record) [![Code Climate](https://codeclimate.com/github/mru2/salesforce_record.png)](https://codeclimate.com/github/mru2/salesforce_record)
 
 ActiveRecord-like mixin for querying, fetching and updating Salesforce models
 
