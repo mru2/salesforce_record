@@ -3,7 +3,7 @@
 
 require 'salesforce_adapter'
 
-module SalesforceModel
+module SalesforceRecord
   module Persistence
     
     def self.included(base)

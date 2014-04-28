@@ -1,3 +1,3 @@
-module SalesforceModel
+module SalesforceRecord
   VERSION = "1.0.0"
 end

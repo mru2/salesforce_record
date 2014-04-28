@@ -2,7 +2,7 @@
 # Responsible for parsing / encoding the values
 # Also handle local and remote name, if different
 
-module SalesforceModel
+module SalesforceRecord
   module Fields
 
     # The base class for the fields. No values parsing or encoding

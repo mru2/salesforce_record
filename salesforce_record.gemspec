@@ -1,11 +1,11 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'salesforce_model/version'
+require 'salesforce_record/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "salesforce_model"
-  spec.version       = SalesforceModel::VERSION
+  spec.name          = "salesforce_record"
+  spec.version       = SalesforceRecord::VERSION
   spec.authors       = ["ClicRDV"]
   spec.email         = ["david.ruyer@clicrdv.com"]
   spec.summary       = %q{ActiveRecord-like mixin for querying, fetching and updating Salesforce models}

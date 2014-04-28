@@ -2,9 +2,9 @@
 # defines #new and #attributes
 # also class methods for parsing / encoding attributes hash for salesforce
 
-require 'salesforce_model/fields'
+require 'salesforce_record/fields'
 
-module SalesforceModel
+module SalesforceRecord
   module Attributes
 
     def self.included(base)

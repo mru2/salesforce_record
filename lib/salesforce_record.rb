@@ -4,7 +4,7 @@
 # Usage :
 # class Lead
 #   is_salesforce_model :Lead
-#   include SalesforceModel
+#   include SalesforceRecord
 #   sf_adapter    salesforce_adapter
 #   sf_attributes :ConvertedAccountId, :Street
 #   sf_attribute  :owner_email,             :from => 'Owner.Email'
@@ -14,21 +14,21 @@
 # lead = Lead.find('my_lead_id', rforce_salesforce_adapter)
 # lead.owner_email # => "my@email.tld"
 
-require 'salesforce_model/version'
+require 'salesforce_record/version'
 
-require 'salesforce_model/base'
-require 'salesforce_model/attributes'
-require 'salesforce_model/finder'
-require 'salesforce_model/persistence'
+require 'salesforce_record/base'
+require 'salesforce_record/attributes'
+require 'salesforce_record/finder'
+require 'salesforce_record/persistence'
 
-module SalesforceModel
+module SalesforceRecord
 
   def self.included(base)
     # Include dependencies
-    base.send :include, SalesforceModel::Base
-    base.send :include, SalesforceModel::Attributes
-    base.send :include, SalesforceModel::Finder
-    base.send :include, SalesforceModel::Persistence
+    base.send :include, SalesforceRecord::Base
+    base.send :include, SalesforceRecord::Attributes
+    base.send :include, SalesforceRecord::Finder
+    base.send :include, SalesforceRecord::Persistence
   end
 
 end

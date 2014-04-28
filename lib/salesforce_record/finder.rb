@@ -1,7 +1,7 @@
 # Finder methods
 # defines #find and #where
 
-module SalesforceModel
+module SalesforceRecord
   module Finder
 
     def self.included(base)

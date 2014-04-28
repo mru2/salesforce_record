@@ -1,13 +1,13 @@
 require 'minitest/autorun'
 require 'mocha/setup'
-require 'salesforce_model'
+require 'salesforce_record'
 
 require 'coveralls'
 Coveralls.wear!
 
 # The tested model
 class TestedModel
-  include SalesforceModel
+  include SalesforceRecord
   
   is_salesforce_model :TestedModel
 
@@ -18,7 +18,7 @@ class TestedModel
 end
 
 
-class SalesforceModelTest < MiniTest::Unit::TestCase
+class SalesforceRecordTest < MiniTest::Unit::TestCase
 
   # The mock data
   def setup

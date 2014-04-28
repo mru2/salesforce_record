@@ -1,7 +1,7 @@
 # Base dependencies for the salesforce models
 # Handles the attribute list, the salesforce adapter, ...
 
-module SalesforceModel
+module SalesforceRecord
   module Base
 
     # Bulding the class

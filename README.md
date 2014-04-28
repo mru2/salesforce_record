@@ -1,6 +1,6 @@
-# SalesforceModel
+# SalesforceRecord
 
-[![Build Status](https://travis-ci.org/mru2/salesforce_model.png?branch=master)](https://travis-ci.org/mru2/salesforce_model) [![Coverage Status](https://coveralls.io/repos/mru2/salesforce_model/badge.png)](https://coveralls.io/r/mru2/salesforce_model) [![Code Climate](https://codeclimate.com/github/mru2/salesforce_model.png)](https://codeclimate.com/github/mru2/salesforce_model)
+[![Build Status](https://travis-ci.org/mru2/salesforce_record.png?branch=master)](https://travis-ci.org/mru2/salesforce_record) [![Coverage Status](https://coveralls.io/repos/mru2/salesforce_record/badge.png)](https://coveralls.io/r/mru2/salesforce_record) [![Code Climate](https://codeclimate.com/github/mru2/salesforce_record.png)](https://codeclimate.com/github/mru2/salesforce_record)
 
 ActiveRecord-like mixin for querying, fetching and updating Salesforce models
 
@@ -8,7 +8,7 @@ ActiveRecord-like mixin for querying, fetching and updating Salesforce models
 
 Add this line to your application's Gemfile:
 
-    gem 'salesforce_model'
+    gem 'salesforce_record'
 
 And then execute:
 
@@ -16,13 +16,13 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install salesforce_model
+    $ gem install salesforce_record
 
 ## Usage
 
 ```
 require 'salesforce_adapter'
-require 'salesforce_model'
+require 'salesforce_record'
 
 $salesforce = SalesforceAdapter::Base.new(
   :url        => 'https://test.salesforce.com/services/Soap/u/16.0',
@@ -31,7 +31,7 @@ $salesforce = SalesforceAdapter::Base.new(
 )
 
 class MyLeadModel
-  include SalesforceModel
+  include SalesforceRecord
 
   is_salesforce_model :Lead
   sf_adapter          $salesforce
@@ -62,7 +62,7 @@ end
 
 ## Contributing
 
-1. Fork it ( http://github.com/<my-github-username>/salesforce_model/fork )
+1. Fork it ( http://github.com/<my-github-username>/salesforce_record/fork )
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)

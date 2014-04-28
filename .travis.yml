@@ -5,4 +5,4 @@ rvm:
   - 2.0.0
   - 1.9.3
 
-script: bundle exec ruby test/salesforce_model_test.rb
+script: bundle exec ruby test/salesforce_record_test.rb
