@@ -6,3 +6,6 @@ gemspec
 # Testing dependencies
 gem "mocha"
 gem "minitest"
+
+# Continuous integration
+gem 'coveralls', :require => false

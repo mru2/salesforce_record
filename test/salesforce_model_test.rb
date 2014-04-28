@@ -2,6 +2,8 @@ require 'minitest/autorun'
 require 'mocha/setup'
 require 'salesforce_model'
 
+require 'coveralls'
+Coveralls.wear!
 
 # The tested model
 class TestedModel
