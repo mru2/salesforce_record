@@ -1,9 +1,10 @@
 require 'minitest/autorun'
 require 'mocha/setup'
-require 'salesforce_record'
 
 require 'coveralls'
 Coveralls.wear!
+
+require 'salesforce_record'
 
 # The tested model
 class TestedModel
