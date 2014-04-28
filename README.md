@@ -1,6 +1,6 @@
 # SalesforceModel
 
-[![Build Status](https://travis-ci.org/mru2/salesforce_model.png?branch=master)](https://travis-ci.org/mru2/salesforce_model) [![Coverage Status](https://coveralls.io/repos/mru2/salesforce_model/badge.png)](https://coveralls.io/r/mru2/salesforce_model)
+[![Build Status](https://travis-ci.org/mru2/salesforce_model.png?branch=master)](https://travis-ci.org/mru2/salesforce_model) [![Coverage Status](https://coveralls.io/repos/mru2/salesforce_model/badge.png)](https://coveralls.io/r/mru2/salesforce_model) [![Code Climate](https://codeclimate.com/github/mru2/salesforce_model.png)](https://codeclimate.com/github/mru2/salesforce_model)
 
 ActiveRecord-like mixin for querying, fetching and updating Salesforce models
 
