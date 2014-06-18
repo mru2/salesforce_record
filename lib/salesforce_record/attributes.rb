@@ -63,13 +63,13 @@ module SalesforceRecord
       end
 
       # Parse fields coming from salesforce
-      def parse_salesforce_fields(sf_fields)
-        {}.tap do |parsed_fields|
-          sf_fields.each do |name, value|
-            parsed_field = parse_salesforce_field(name, value) unless value.nil?
-            parsed_fields.merge! parsed_field if !parsed_field.nil?
-          end
+      def parse_salesforce_fields(sf_response)
+        res = {}
+        self.salesforce_fields.each do |_, field|
+          value = field.find_value_in(sf_response)
+          res[field.local_name] = value if !value.nil?
         end
+        res
       end
 
       # Encode fields for salesforce
@@ -79,18 +79,6 @@ module SalesforceRecord
             encoded_field = encode_salesforce_field(name, value)
             encoded_fields.merge! encoded_field if !encoded_field.nil?
           end
-        end
-      end
-
-      # Parse a field coming from salesforce (type)
-      def parse_salesforce_field(name, value)
-        # If existing, parse it depending on type
-        if (field = get_field name)
-          { field.local_name => field.parse(value) }
-
-        # Else, try to find if it is an alias
-        else
-          find_matching_alias(name => value)
         end
       end
 
@@ -116,17 +104,6 @@ module SalesforceRecord
 
       def field_remote_name(name)
         has_field?(name) && self.salesforce_fields[name].remote_name
-      end
-
-
-      # Tries to find a salesforce alias matching a nested hash. Returns the alias name and corresponding value if found
-      def find_matching_alias(nested_hash)
-        self.salesforce_fields.each do |name, field|
-          if (value = field.is_alias_of(nested_hash))
-            return parse_salesforce_field(name, value)
-          end
-        end
-        return nil
       end
 
     end

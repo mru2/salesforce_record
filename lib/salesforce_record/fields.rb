@@ -33,18 +33,21 @@ module SalesforceRecord
         !!@remote_name
       end
 
-      # Check if matching nested hash
-      def is_alias_of(nested_hash)
-        return false unless @remote_name
-        deep_fetch(nested_hash, remote_name.split('.').map(&:to_sym))
+      # Find the value in a hash, handling nesting and aliases
+      def find_value_in(hash)
+        value = hash[remote_name] || deep_fetch(hash)
+
+        value.nil? ? nil : parse(value)
       end
+
 
       private
 
-      # Helper : fetch deep value from a hash
-      def deep_fetch(hash, keys)
+      # Helper : fetch the value deep in a hash
+      def deep_fetch(hash)
+        keys = remote_name.to_s.split('.').map(&:to_sym)
         keys.inject(hash){|subhash, key| subhash.is_a?(Hash) && subhash[key] }
-      end      
+      end
     end
 
 

@@ -14,7 +14,8 @@ class TestedModel
 
   # sf_adapter -- defined in setup
   sf_attributes :Field1, :Field2
-  sf_attribute  :deep_field, :from => 'Parent.Field3'
+  sf_attribute  :deep_field, :from => 'Parent.Middle.Field3'
+  sf_attribute  :deep_field2, :from => 'Parent.Field4'
   sf_attribute  :Timestamp, :type => :date
 end
 
@@ -27,7 +28,7 @@ class SalesforceRecordTest < MiniTest::Unit::TestCase
     TestedModel.sf_adapter @adapter
 
     @salesforce_id = "SALESFORCE_ID_1234"
-    @salesforce_fields = {:Id => @salesforce_id, :type => "TestedModel", :Field1 => "value1", :Field2 => "value2", :Parent => {:Field3 => "value3"}, :Timestamp => "2013-03-01"}
+    @salesforce_fields = {:Id => @salesforce_id, :type => "TestedModel", :Field1 => "value1", :Field2 => "value2", :Parent => { :Middle => {:Field3 => "value3"}, :Field4 => "value4" }, :Timestamp => "2013-03-01"}
   end
 
   # Initialisation
@@ -38,11 +39,13 @@ class SalesforceRecordTest < MiniTest::Unit::TestCase
     assert_equal nil, model.Field1
     assert_equal nil, model.Field2
     assert_equal nil, model.deep_field
+    assert_equal nil, model.deep_field2
 
     model = TestedModel.from_salesforce(@salesforce_fields)
     assert_equal "value1", model.Field1
     assert_equal "value2", model.Field2
     assert_equal "value3", model.deep_field
+    assert_equal "value4", model.deep_field2
 
   end
 
@@ -53,6 +56,7 @@ class SalesforceRecordTest < MiniTest::Unit::TestCase
       :Field1=>"value1",
       :Field2=>"value2",
       :deep_field=>"value3",
+      :deep_field2=>"value4",
       :Timestamp => Date.new(2013,3,1)}), TestedModel.parse_salesforce_fields(@salesforce_fields)
   end
 
@@ -66,7 +70,7 @@ class SalesforceRecordTest < MiniTest::Unit::TestCase
   def test_find
 
     # Returns the record matching the id if there is one
-    @adapter.expects(:query).with("Select t.Id, t.Field1, t.Field2, t.Parent.Field3, t.Timestamp from TestedModel t WHERE t.Id='#{@salesforce_id}'").once.returns([@salesforce_fields])
+    @adapter.expects(:query).with("Select t.Id, t.Field1, t.Field2, t.Parent.Middle.Field3, t.Parent.Field4, t.Timestamp from TestedModel t WHERE t.Id='#{@salesforce_id}'").once.returns([@salesforce_fields])
     model = TestedModel.find(@salesforce_id)
 
     assert model != nil
@@ -74,11 +78,12 @@ class SalesforceRecordTest < MiniTest::Unit::TestCase
     assert_equal "value1",        model.Field1
     assert_equal "value2",        model.Field2
     assert_equal "value3",        model.deep_field
+    assert_equal "value4",        model.deep_field2
 
 
     # If none found : nil
     bad_id = "BAD_SALESFORCE_ID"
-    @adapter.expects(:query).with("Select t.Id, t.Field1, t.Field2, t.Parent.Field3, t.Timestamp from TestedModel t WHERE t.Id='#{bad_id}'").once.returns([])
+    @adapter.expects(:query).with("Select t.Id, t.Field1, t.Field2, t.Parent.Middle.Field3, t.Parent.Field4, t.Timestamp from TestedModel t WHERE t.Id='#{bad_id}'").once.returns([])
     model = TestedModel.find(bad_id)
 
     assert_nil model
@@ -90,19 +95,19 @@ class SalesforceRecordTest < MiniTest::Unit::TestCase
   def test_where
 
     # Builds the right query for salesforce
-    @adapter.expects(:query).with("Select t.Id, t.Field1, t.Field2, t.Parent.Field3, t.Timestamp from TestedModel t WHERE t.Field1='condition'").once.returns([])
+    @adapter.expects(:query).with("Select t.Id, t.Field1, t.Field2, t.Parent.Middle.Field3, t.Parent.Field4, t.Timestamp from TestedModel t WHERE t.Field1='condition'").once.returns([])
     TestedModel.where(:Field1 => 'condition')
 
     # Don't escape booleans
-    @adapter.expects(:query).with("Select t.Id, t.Field1, t.Field2, t.Parent.Field3, t.Timestamp from TestedModel t WHERE t.Field2=true").once.returns([])
+    @adapter.expects(:query).with("Select t.Id, t.Field1, t.Field2, t.Parent.Middle.Field3, t.Parent.Field4, t.Timestamp from TestedModel t WHERE t.Field2=true").once.returns([])
     TestedModel.where(:Field2 => true)
 
     # Handle deep fields
-    @adapter.expects(:query).with("Select t.Id, t.Field1, t.Field2, t.Parent.Field3, t.Timestamp from TestedModel t WHERE t.Parent.Field3='condition'").once.returns([])
+    @adapter.expects(:query).with("Select t.Id, t.Field1, t.Field2, t.Parent.Middle.Field3, t.Parent.Field4, t.Timestamp from TestedModel t WHERE t.Parent.Middle.Field3='condition'").once.returns([])
     TestedModel.where(:deep_field => 'condition')
 
     # Can be fetched directly a query string
-    @adapter.expects(:query).with("Select t.Id, t.Field1, t.Field2, t.Parent.Field3, t.Timestamp from TestedModel t WHERE Field1='value1' ORDER BY Field2 DESC").once.returns([])
+    @adapter.expects(:query).with("Select t.Id, t.Field1, t.Field2, t.Parent.Middle.Field3, t.Parent.Field4, t.Timestamp from TestedModel t WHERE Field1='value1' ORDER BY Field2 DESC").once.returns([])
     TestedModel.where("Field1='value1' ORDER BY Field2 DESC")
 
     # Returns an array of records
